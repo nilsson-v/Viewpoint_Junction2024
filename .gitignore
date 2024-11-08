@@ -2,3 +2,4 @@ config_private.py
 __pycache__
 .conda
 news_data.json
+firebase/serviceAccountKey.json
