@@ -1,6 +1,7 @@
 import requests
 from config_private import APP_ID, APP_KEY
 import re
+import json
 
 
 def call_yle_api(url, params):
@@ -75,3 +76,13 @@ print(pages)
 # Get the news for these pages
 data = get_news_text(pages, params)
 print(data)
+
+# Path to the file where you want to write the JSON data
+file_path = './news_data.json'
+
+# Open the file in write mode ('w')
+with open(file_path, 'w') as file:
+    # Use json.dump() to write the data to the file
+    json.dump(data, file, indent=4)
+
+print(f"JSON data has been written to {file_path}")
