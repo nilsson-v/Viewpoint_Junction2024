@@ -4,6 +4,7 @@ certifi==2024.8.30
 cffi==1.17.1
 charset-normalizer==3.4.0
 cryptography==43.0.3
+Flask==3.0.3
 firebase-admin==6.6.0
 google-api-core==2.22.0
 google-api-python-client==2.151.0
