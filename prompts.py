@@ -36,3 +36,8 @@ CREATE_POLIS_DISCUSSION_PROMPT = """You are now an expert at facilitating civili
     Initial statements: Agricultural strikes are a fair way to protect workers rights | Agricultural strikes do more harm than good | The impact of strikes is often overstated
     ######
     Please strictly stick to the expected format in your responses. Let's begin... """
+
+FACILITATE_DISCUSSION_PROMPT = """Can you create some open-ended questions relevant to the statement. 
+    These questions should gently encourage the user to participate in the discussion and could be framed as questions or prompts, 
+    making it easier for them to join the conversation with context. Please make them very brief and limit to max 4. Don't use any narration. 
+    Please answer in the same language as the statement. Please format the output as a list of bullet-points. Let's begin..."""
