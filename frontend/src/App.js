@@ -18,12 +18,14 @@ const App = () => {
   // Function to fetch data from Flask API
   const fetchData = async () => {
     try {
-      const response = await fetch('http://127.0.0.1:5000/api/data');
+      // Update the URL to match where your Flask app is hosted
+      const response = await fetch('https://flaskapi-529120302078.europe-north1.run.app/get_articles_test');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setFlaskData(data);
+      // Access the "data" object and set it as flaskData
+      setFlaskData(data.data); // Assuming "data" is the key containing articles
     } catch (error) {
       setError(error.message);
     } finally {
@@ -35,6 +37,10 @@ const App = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  // If data is still loading or an error occurs, display loading/error message
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <DataContext.Provider value={{ flaskData, loading, error }}>
@@ -54,4 +60,3 @@ const App = () => {
 };
 
 export default App;
-

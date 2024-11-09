@@ -113,7 +113,7 @@ const Home = () => {
       <section ref={internalRef} className="news-section">
         <h3 className="sub-header">Internal Affairs</h3>
         <div className="news-list">
-            {internalNews.map((news, index) => (
+            {worldNews.map((news, index) => (
               <div
                 key={index}
                 onClick={() => handleArticleClick(news)}
@@ -133,7 +133,7 @@ const Home = () => {
        <section ref={usRef} className="news-section">
         <h3 className="sub-header">United States</h3>
         <div className="news-list">
-            {usNews.map((news, index) => (
+            {worldNews.map((news, index) => (
               <div
                 key={index}
                 onClick={() => handleArticleClick(news)}
