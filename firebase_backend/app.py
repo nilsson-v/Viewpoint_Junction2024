@@ -12,6 +12,7 @@ from flask_cors import CORS
 from backend_prompts import CREATE_POLIS_DISCUSSION_PROMPT, ADD_RELEVANT_INFO_PROMPT
 import re
 import hashlib
+from collections import Counter
 
 # Set API key for GROQ model
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
@@ -245,19 +246,118 @@ def search_articles():
 
 @app.route("/ask_question", methods=["POST"])
 def ask_question():
+    """
+    Endpoint to ask a question based on provided content.
+    
+    Accepts a JSON payload with the following fields:
+        - "content" (str): The main content or article text to analyze.
+        - "question" (str): The user's question about the provided content.
+    
+    Uses a language model prompt template to generate an answer to the question
+    based on the content and returns a JSON response.
+    
+    Returns:
+        JSON response containing:
+        - "response" (str): The generated answer to the user's question.
+    """
+    # Get the JSON data from the request
     data = request.json
 
+    # Extract 'content' and 'question' from the request, default to empty string if missing
     content = data.get("content", "")
     question = data.get("question", "")
 
+    # Define a prompt template for the question-answering model
     qa_prompt_template = ChatPromptTemplate.from_messages(
                 [("system", ADD_RELEVANT_INFO_PROMPT), ("user", "<article_content>{article}</article_content> <user_question>{text}</user_question>")]
             )
+    
+    # Create a chain that combines the prompt template and the language model
     qa_chain = qa_prompt_template | llm
 
+    # Invoke the chain with content and question to get a response
     response = qa_chain.invoke({"article": content, "text": question}).content
 
+    # Return the response in JSON format
     return jsonify({"response": response})
+
+
+@app.route("/get_topics", methods=["GET"])
+def get_topics():
+    """
+    Endpoint to retrieve and count topics from articles in the database.
+    
+    Collects all articles from the 'news_articles' collection, counts occurrences of each topic, 
+    and returns a sorted list of topics in descending order of frequency.
+    
+    Returns:
+        JSON response containing:
+        - "data" (list): A list of dictionaries, each with:
+            - "topic" (str): The topic name.
+            - "count" (int): The count of articles for this topic.
+    """
+    # Reference the 'news_articles' collection in the database
+    articles_ref = db.collection("news_articles")
+    docs = articles_ref.stream()
+
+    # Initialize a Counter to tally the topics
+    topic_counts = Counter()
+
+    # Process each document in the collection
+    for doc in docs:
+        article_data = doc.to_dict()
+        
+        # Extract the topic if it exists and increment its count
+        topic = article_data.get("topic")
+        if topic:
+            topic_counts[topic] += 1
+
+    # Sort topics by their count in descending order
+    sorted_topics = sorted(topic_counts.items(), key=lambda x: x[1], reverse=True)
+
+    # Format the sorted topics list for JSON response
+    sorted_topics_json = [{"topic": topic, "count": count} for topic, count in sorted_topics]
+
+    # Return the list of topics as a JSON response
+    return jsonify({"data": sorted_topics_json})
+
+
+@app.route("/get_articles/<topic>", methods=["GET"])
+def get_articles_by_topic(topic):
+    """
+    Endpoint to retrieve articles by a specified topic.
+    
+    Fetches all articles in the 'news_articles' collection that match the specified topic
+    and returns them as a list in JSON format.
+    
+    Args:
+        topic (str): The topic to filter articles by (provided in URL).
+    
+    Returns:
+        JSON response containing:
+        - "data" (list): A list of dictionaries, each representing an article, with:
+            - "id" (str): Document ID of the article.
+            - Other article fields excluding "embedding" for clarity.
+    """
+    # Reference the 'news_articles' collection in the database
+    articles_ref = db.collection("news_articles")
+    
+    # Create a query to retrieve articles with the specified topic
+    query = articles_ref.where("topic", "==", topic)
+    docs = query.stream()
+
+    # Initialize a list to hold articles with the specified topic
+    articles = []
+
+    # Process each document and add to the articles list
+    for doc in docs:
+        article_data = doc.to_dict()
+        article_data["id"] = doc.id  # Add document ID for reference
+        article_data.pop("embedding", None)  # Exclude 'embedding' for response clarity
+        articles.append(article_data)
+
+    # Return the list of articles as a JSON response
+    return jsonify({"data": articles})
 
 
 # Run the Flask app on host 0.0.0.0 and port 8080
