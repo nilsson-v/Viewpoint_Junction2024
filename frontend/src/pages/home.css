@@ -40,9 +40,6 @@
   cursor: pointer;
 }
 
-
-
-
 /* Newscards */
 .news-grid {
   display: grid;
@@ -65,14 +62,17 @@
 .news-grid > .news-card:nth-child(even) {
   justify-self: end; /* Aligns even-numbered cards to the end */
 }
+
 .top-content {
   display: flex;
   justify-content: space-between;
   height: 25vh; /* Adjust the height to fit the layout */
 }
+
 .top-text-container {
   max-width: 60%;
 }
+
 .tag {
   font-weight: bold;
   color: rgb(154, 36, 36);
@@ -81,15 +81,18 @@
   padding: 5px; /* Optional: Adds some padding inside the border for better spacing */
   width: fit-content;
 }
+
 .news-title {
-  font-size:2rem;
+  font-size:1.6rem;
   font-weight: bold;
   margin: 10px 0;
 }
+
 .image-container {
   height: auto;
   width: 38%; /* Make image container take 40% of the space */
 }
+
 .news-image {
   width: 100%; /* Make the image take up the full width of its container */
   max-height: 100%; /* Make the image take up the full height of its container */
@@ -151,32 +154,4 @@
 
 .internal-description{
   font-size: 1.5rem;
-}
-
-.loading-screen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* Take full viewport height */
-  background-color: #f7f1e5; /* Optional background color */
-  font-size: 1.5rem;
-  font-weight: bold;
-  flex-direction: column;
-}
-
-.loading-spinner {
-  width: 100px; /* Set the size of your spinner */
-  height: 100px;
-  background-image: url('/public/viewpoint.png'); /* Path to your spinner image */
-  background-size: cover;
-  animation: spin 2s linear infinite; /* Spinning animation */
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <div className={`navbar-container ${isVisible ? 'show' : 'hide'}`}>
       <div className='title-container'>
-        <h1 className="title">Viewpoint</h1>
+        <h1 className="title">VIEWPOINT</h1>
       </div>
       <nav className="all-links-container">
         <div className="other-links-container">

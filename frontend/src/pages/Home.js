@@ -1,6 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DataContext } from '../App'; // Import the context
+import { DataContext } from '../App'; 
+import { useEffect } from 'react';
 import './home.css';
 
 const Home = () => {
@@ -50,23 +51,16 @@ const Home = () => {
   };
 
   // Check if the data is loading or if there's an error
-  if (loading) {
-    return (
-      <div className="loading-screen">
-        <div className="loading-spinner"></div> {/* Custom loading spinner */}
-        <p>Loading data, please wait...</p> {/* Show a simple loading message */}
-      </div>
-    );
-  }
+  if (loading) return <p>Data is loading...</p>
 
   if (error) return <p>Error: {error}</p>;
 
   // Transform the data only if it's available
   const newsData = flaskData ? transformData(flaskData) : [];
 
-  const worldNews = newsData.filter(news => news.topic !== "Internal Affairs" && news.topic !== "United States");
-  const internalNews = newsData.filter(news => news.topic === "Internal Affairs");
-  const usNews = newsData.filter(news => news.topic === "United States");
+  const worldNews = newsData.filter(news => news.topic !== "Internal Affairs" && news.topic !== "United States").slice(0, 4);
+  const internalNews = newsData.filter(news => news.topic === "Internal Affairs").slice(0, 4);
+  const usNews = newsData.filter(news => news.topic === "United States").slice(0, 4);
 
   // Handle article click
   const handleArticleClick = (article) => {
