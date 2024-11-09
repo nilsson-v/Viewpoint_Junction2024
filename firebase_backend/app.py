@@ -112,6 +112,28 @@ def get_opinions():
     return jsonify({"data": opinions})
 
 
+@app.route("/get_opinion/<opinion_id>", methods=["GET"])
+def get_opinion(opinion_id):
+    """
+    Retrieves a single opinion by its ID from the 'opinions' collection.
+    
+    Args:
+        opinion_id (str): The ID of the opinion to retrieve.
+    
+    Returns:
+        JSON: A JSON object containing the opinion data or an error message if not found.
+    """
+    # Retrieve the document based on the provided opinion_id
+    doc_ref = db.collection("opinions").document(opinion_id)
+    doc = doc_ref.get()
+    
+    # Check if the document exists and return data if found
+    if doc.exists:
+        return jsonify({"opinion": doc.to_dict(), "id": doc.id})
+    else:
+        return jsonify({"error": "Opinion not found"}), 404
+
+
 @app.route("/process_user_viewpoint", methods=["POST"])
 def process_user_viewpoint():
     """
