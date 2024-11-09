@@ -128,28 +128,36 @@ def process_user_viewpoint():
     return jsonify({"response": "success"})
 
 
-@app.route("/similarity_search_article", methods=["POST"])
-def similarity_search_article():
+@app.route("/search_articles", methods=["POST"])
+def search_articles():
     data = request.json
-    subtopic = data.get("topic", "")
-    embedded_subtopic = embed_model.embed_query(subtopic)
+    text = data.get("text", "")
 
-    collection = db.collection("news")
+    query_vector = embed_model.embed_query(text)
 
-    # Requires a single-field vector index
+    collection = db.collection("news_articles")
+
     vector_query = collection.find_nearest(
-        vector_field="embedded_subtopic",
-        query_vector=Vector(embedded_subtopic),
+        vector_field="embedding",
+        query_vector=Vector(query_vector),
         distance_measure=DistanceMeasure.COSINE,
         limit=5,
-        distance_result_field="vector_distance"
     )
 
     docs = vector_query.stream()
 
-    response_data = [f"{doc.id}), Distance: {doc.get('vector_distance')}" for doc in docs]
+    # Prepare a list to store all articles
+    articles = []
 
-    return jsonify({"response": response_data})
+    # Iterate through each document and add it to the list
+    for doc in docs:
+        article_data = doc.to_dict()
+        article_data["id"] = doc.id  # Include the document ID
+        article_data.pop("embedding", None)
+        articles.append(article_data)
+
+    # Return the list of articles as a JSON response
+    return jsonify({"data": articles})
 
 
 if __name__ == "__main__":

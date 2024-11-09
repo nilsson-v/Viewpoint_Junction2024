@@ -84,7 +84,7 @@ def process_articles(data):
 
 def upload_articles(data):
     for key, value in zip(data.keys(), data.values()):
-        #value["embedding"] = Vector(embed_model.embed_query(value.get("content", "")))
+        value["embedding"] = Vector(embed_model.embed_query(value.get("content", "")))
         db.collection("news_articles").document(key).set(value)
 
 

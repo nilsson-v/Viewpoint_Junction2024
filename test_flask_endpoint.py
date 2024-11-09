@@ -21,10 +21,10 @@ data2 = {
     }
 
 data3 = {
-    "topic": "Sisäministerin kahvihetki venyi liian pitkäksi, politiikka jatkui siitä huolimatta",
+    "topic": "US and Ukraine",
     }
 
-data4 = {"text": "What is the best way to drink coffee?"}
+data4 = {"text": "US and Ukraine"}
 
 headers = {
     'Content-Type': 'application/json',
@@ -40,9 +40,11 @@ data5 =  {
 
 url55 = "http://127.0.0.1:8080/get_opinions"
 
+url777 = "http://127.0.0.1:8080/search_articles"
+
 try:
-    #response = requests.post(url77, headers=headers, data=json.dumps(data5))
-    response = requests.get(url5)
+    response = requests.post(url777, headers=headers, data=json.dumps(data4))
+    #response = requests.get(url5)
     response.raise_for_status()  # Raises an HTTPError if the status is 4xx, 5xx
     print("\n\n\n\n")
     print(response.json())
