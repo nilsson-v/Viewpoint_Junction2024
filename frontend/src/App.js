@@ -12,23 +12,46 @@ export const DataContext = createContext();
 
 const App = () => {
   const [flaskData, setFlaskData] = useState(null);
+  const [opinionsData, setOpinionsData] = useState(null); // New state for opinions
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Function to fetch data from Flask API
-  const fetchData = async () => {
+  // Function to fetch data from the first endpoint
+  const fetchArticles = async () => {
     try {
-      // Update the URL to match where your Flask app is hosted
       const response = await fetch('https://flaskapi-529120302078.europe-north1.run.app/get_articles');
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('Failed to fetch articles');
       }
       const data = await response.json();
-      console.log(data)
-      // Access the "data" object and set it as flaskData
-      setFlaskData(data.data); 
-    } catch (error) {
-      setError(error.message);
+      setFlaskData(data.data);
+    } catch (err) {
+      throw new Error(`Articles Fetch Error: ${err.message}`);
+    }
+  };
+
+  // Function to fetch data from the second endpoint
+  const fetchOpinions = async () => {
+    try {
+      const response = await fetch('https://flaskapi-529120302078.europe-north1.run.app/get_opinions');
+      if (!response.ok) {
+        throw new Error('Failed to fetch opinions');
+      }
+      const data = await response.json();
+      setOpinionsData(data.data);
+    } catch (err) {
+      throw new Error(`Opinions Fetch Error: ${err.message}`);
+    }
+  };
+
+  // Combined function to fetch both sets of data
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      await Promise.all([fetchArticles(), fetchOpinions()]);
+    } catch (err) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }
@@ -44,7 +67,7 @@ const App = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <DataContext.Provider value={{ flaskData, loading, error }}>
+    <DataContext.Provider value={{ flaskData, opinionsData, loading, error }}>
       <Router>
         <div className="App">
           <Navbar />
