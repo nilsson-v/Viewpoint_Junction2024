@@ -30,7 +30,6 @@ const Home = () => {
       title: article.title,
       description: getFirstWords(article.content, 30), // Get the first 40 words
       text: article.content,
-      image: "https://via.placeholder.com/150", // Placeholder for image, update as needed
       time: formatTime(article.date),
       topic: article.topic, // Ensure topic is included
       id: article.id
@@ -50,6 +49,29 @@ const Home = () => {
     const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
     return diffInHours === 0 ? "Just now" : `${diffInHours} hours ago`;
   };
+
+  // List of alt tags and their corresponding new image URLs
+  const imageMappings = {
+    "Tampere Waste Facility Fire Continues to Spread Smoke, Residents Advised to Stay Indoors": "https://images.cdn.yle.fi/image/upload/c_crop,h_3375,w_6000,x_0,y_400/ar_1.7777777777777777,c_fill,g_faces,h_431,w_767/dpr_2.0/q_auto:eco/f_auto/fl_lossy/v1730812131/39-13749846729fa561c1a7",
+    "VR Upgrades to Faster WiFi on Long-Distance Trains, Sees Improvement in Passenger Satisfaction": "https://images.ctfassets.net/gshi3wijcp49/46PclLZ2MrobqQKRdzJtUQ/baf126d7f3c3d2b61736f0829428bcd5/STA0470_VR_SMX_web.jpg?fm=webp&w=3840&q=65",
+    "Two New Art Academics Appointed by President Stubb": "https://static.euronews.com/articles/stories/08/23/34/52/1920x1080_cmsv2_ba4dffd3-ddf9-57af-ab2c-fefec1ab1f4d-8233452.jpg",
+    "Sunny Weekend Ahead: Finland to Enjoy Mild Weather": "https://images.cdn.yle.fi/image/upload/ar_1.7777777777777777,c_fill,g_faces,h_431,w_767/dpr_2.0/q_auto:eco/f_auto/fl_lossy/13-3-8565476"
+  };
+
+  // UseEffect to change the src of multiple images based on their alt tags
+  useEffect(() => {
+    if (flaskData) {
+      // Select all images on the page
+      const imgElements = document.querySelectorAll('img');
+
+      imgElements.forEach((img) => {
+        const newSrc = imageMappings[img.alt]; // Find the new src using the alt text
+        if (newSrc) {
+          img.src = newSrc; // Update the src if a mapping exists
+        }
+      });
+    }
+  }, [flaskData]);
 
   // Check if the data is loading or if there's an error
   if (loading) return <p>Data is loading...</p>
@@ -97,7 +119,7 @@ const Home = () => {
                 </div>
                 <div className="image-container">
                   <img
-                    src={news.image}
+                    src={news.id}
                     alt={news.title}
                     className="news-image"
                   />
@@ -152,6 +174,7 @@ const Home = () => {
           </div>
       </section>
     </div>
+    
   );
 };
 

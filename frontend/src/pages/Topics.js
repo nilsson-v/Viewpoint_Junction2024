@@ -7,7 +7,7 @@ const Topics = () => {
       <h2>Popular Topics</h2>
       <div className="topics-grid">
         <div className="topic-card">Popular Topics</div>
-        <div className="topic-card">New Topics</div>
+        <div className="topic-card">Personal Viewpoints</div>
         <div className="topic-card">All Topics</div>
       </div>
     </div>
