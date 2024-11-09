@@ -4,7 +4,7 @@ url1 = "http://127.0.0.1:8080/embed_text"
 url2 = "http://127.0.0.1:8080/add_article"
 url3 = "http://127.0.0.1:8080/similarity_search_article"
 url4 = "http://127.0.0.1:8080/generate_text"
-url5 = "http://127.0.0.1:8080/get_article/article_id"
+url5 = "http://127.0.0.1:8080/get_articles_test"
 
 data1 = {"text": "Test input for embedding"}
 

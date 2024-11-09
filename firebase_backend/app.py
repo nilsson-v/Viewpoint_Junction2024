@@ -8,6 +8,7 @@ from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
 from langchain_groq import ChatGroq
 from groq_keys import GROQ_API_KEY
 import os
+from flask_cors import CORS
 
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
@@ -20,6 +21,7 @@ llm = ChatGroq(
 )
 
 app = Flask(__name__)
+CORS(app)  # This will allow all domains by default PROBABLY NEEDED???
 
 cred = credentials.Certificate("./junction-2024-firebase-adminsdk-nkyl9-f1b4744457.json")
 firebase_admin.initialize_app(cred)
@@ -128,6 +130,31 @@ def generateText():
     response = chain.invoke({"text": user_input})
 
     return jsonify({"response": response.content})
+
+
+@app.route("/get_articles_test", methods=["GET"])
+def get_articles_test():
+    data = {
+        "1": {
+            "title": "Qatar asks Hamas leaders to leave after US pressure",
+            "date": "2024-11-09T10:00:00Z",
+            "content": "Warren Buffett has bought a new home in Chinatown...",
+            "subtopic": "US economy",
+            "statements": [],
+            "topic": "Politics",
+            "source": "Reuters"
+        },
+        "2": {
+            "title": "AI Breakthroughs in Healthcare: What's Next?",
+            "date": "2024-11-08T15:30:00Z",
+            "content": "Artificial intelligence has made significant strides in healthcare...",
+            "subtopic": "Technology",
+            "statements": [],
+            "topic": "Healthcare",
+            "source": "TechCrunch"
+        }
+    }
+    return jsonify({"data": data})
 
 
 if __name__ == "__main__":

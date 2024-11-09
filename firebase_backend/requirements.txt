@@ -7,3 +7,4 @@ langchain_huggingface
 firebase_admin
 langchain-groq
 google-cloud
+Flask-Cors
