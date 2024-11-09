@@ -9,6 +9,9 @@ from langchain_groq import ChatGroq
 from groq_keys import GROQ_API_KEY
 import os
 from flask_cors import CORS
+from backend_prompts import CREATE_POLIS_DISCUSSION_PROMPT
+import re
+import hashlib
 
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
@@ -44,10 +47,11 @@ def get_articles():
     for doc in docs:
         article_data = doc.to_dict()
         article_data["id"] = doc.id  # Include the document ID
+        article_data.pop("embedding", None)
         articles.append(article_data)
 
     # Return the list of articles as a JSON response
-    return jsonify({"articles": articles})
+    return jsonify({"data": articles})
 
 
 @app.route("/get_article/<article_id>", methods=["GET"])
@@ -60,34 +64,66 @@ def get_article(article_id):
         return jsonify({"error": "Article not found"}), 404
     
 
-@app.route("/embed_text", methods=["POST"])
-def embed_text():
+@app.route("/get_opinions", methods=["GET"])
+def get_opinions():
+    # Reference the 'news_articles' collection
+    opinions_ref = db.collection("opinions")
+    docs = opinions_ref.stream()
+
+    # Prepare a list to store all articles
+    opinions = []
+
+    # Iterate through each document and add it to the list
+    for doc in docs:
+        opinion_data = doc.to_dict()
+        opinion_data["id"] = doc.id  # Include the document ID
+        opinion_data.pop("embedding", None)
+        opinions.append(opinion_data)
+
+    # Return the list of articles as a JSON response
+    return jsonify({"data": opinions})
+
+
+@app.route("/process_user_viewpoint", methods=["POST"])
+def process_user_viewpoint():
     data = request.json
-    user_input = data.get("text", "")
-    # Embed the user input
-    response = embed_model.embed_query(user_input)
+
+    title = data.get("title", "")
+    date = data.get("date", "")
+    content = data.get("content")
+    source = data.get("source")
+
+    create_polis_discussion_prompt_template = ChatPromptTemplate.from_messages(
+                [("system", CREATE_POLIS_DISCUSSION_PROMPT), ("user", "{text}")]
+            )
+
+    create_polis_discussion_chain = create_polis_discussion_prompt_template | llm
+
+    response = create_polis_discussion_chain.invoke({"text": content}).content
+
+    topic = re.search(r"<topic>(.*?)</topic>", response).group(1)
+    subtopic = re.search(r"<subtopic>(.*?)</subtopic>", response).group(1)
+    statements_raw = re.search(r"<statements>(.*?)</statements>", response).group(1)
+
+    # Split statements by '|'
+    statements = [statement.strip() for statement in statements_raw.split("|")]
+
+    embedding = Vector(embed_model.embed_query(content))
+
+    opinion_doc = {
+                "title": title,
+                "date": date,
+                "content": content,
+                "subtopic": subtopic,
+                "statements": statements,
+                "topic": topic,
+                "source": source,
+                "embedding": embedding,
+            }
+
+    opinion_id = hashlib.sha256(content.encode()).hexdigest()
     
-    return jsonify({"embedded_text": response})
-
-
-@app.route("/add_article", methods=["POST"])
-def add_article():
-    data = request.json
-
-    article = data.get("article", "")
-    subtopic = data.get("topic", "")
-    statements = data.get("statements", "")
-
-    embedded_subtopic = embed_model.embed_query(subtopic)
-
-    news_doc = { 
-        "topic" : subtopic,
-        "article": article,
-        "statements": statements,
-        "embedded_subtopic": Vector(embedded_subtopic)
-        }
-
-    db.collection("news").document("1").set(news_doc)
+    db.collection("opinions").document(opinion_id).set(opinion_doc)
 
     return jsonify({"response": "success"})
 
@@ -114,47 +150,6 @@ def similarity_search_article():
     response_data = [f"{doc.id}), Distance: {doc.get('vector_distance')}" for doc in docs]
 
     return jsonify({"response": response_data})
-
-
-@app.route("/generate_text", methods=["POST"])
-def generateText():
-    data = request.json
-    user_input = data.get("text", )
-
-    prompt_template = ChatPromptTemplate.from_messages(
-                [("system", "You are now an assistant whose task is simple QA. Please briefly answer user questions. Lets begin..."), ("user", "{text}")]
-            )
-
-    chain = prompt_template | llm
-
-    response = chain.invoke({"text": user_input})
-
-    return jsonify({"response": response.content})
-
-
-@app.route("/get_articles_test", methods=["GET"])
-def get_articles_test():
-    data = {
-        "1": {
-            "title": "Qatar asks Hamas leaders to leave after US pressure",
-            "date": "2024-11-09T10:00:00Z",
-            "content": "Warren Buffett has bought a new home in Chinatown...",
-            "subtopic": "US economy",
-            "statements": [],
-            "topic": "Politics",
-            "source": "Reuters"
-        },
-        "2": {
-            "title": "AI Breakthroughs in Healthcare: What's Next?",
-            "date": "2024-11-08T15:30:00Z",
-            "content": "Artificial intelligence has made significant strides in healthcare...",
-            "subtopic": "Technology",
-            "statements": [],
-            "topic": "Healthcare",
-            "source": "TechCrunch"
-        }
-    }
-    return jsonify({"data": data})
 
 
 if __name__ == "__main__":

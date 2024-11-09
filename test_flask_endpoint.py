@@ -5,7 +5,7 @@ url1 = "http://127.0.0.1:8080/embed_text"
 url2 = "http://127.0.0.1:8080/add_article"
 url3 = "http://127.0.0.1:8080/similarity_search_article"
 url4 = "http://127.0.0.1:8080/generate_text"
-url5 = "http://127.0.0.1:8080/get_articles_test"
+url5 = "http://127.0.0.1:8080/get_articles"
 
 url6 = "https://flaskapi-529120302078.europe-north1.run.app/get_articles_test"
 url7 = "https://flaskapi-529120302078.europe-north1.run.app/generate_text"
@@ -30,8 +30,19 @@ headers = {
     'Content-Type': 'application/json',
 }
 
+url77 = "http://127.0.0.1:8080/process_user_viewpoint"
+data5 =  {
+      "title": "The Growing Impact of Social Media on Political Polarization",
+      "date": "2024-11-09",
+      "content": "The rapid rise of social media as a primary source of information has contributed significantly to increasing political polarization globally. A recent study by the Pew Research Center shows that 70% of Americans believe political polarization has worsened in the past five years. Social media platforms, with their algorithm-driven feeds, tend to amplify extreme views, leading to more entrenched political divisions. In Finland, political polarization has also risen by 30% in the last decade, partly due to social media's role in shaping public opinion. This growing divide in political ideologies raises concerns about the future of democratic processes and public discourse.",
+      "source": "Pew Research Center, 2024"
+    }
+
+url55 = "http://127.0.0.1:8080/get_opinions"
+
 try:
-    response = requests.post(url7, headers=headers, data=json.dumps(data4))
+    #response = requests.post(url77, headers=headers, data=json.dumps(data5))
+    response = requests.get(url5)
     response.raise_for_status()  # Raises an HTTPError if the status is 4xx, 5xx
     print("\n\n\n\n")
     print(response.json())

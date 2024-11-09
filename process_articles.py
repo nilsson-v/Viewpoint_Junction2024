@@ -84,7 +84,7 @@ def process_articles(data):
 
 def upload_articles(data):
     for key, value in zip(data.keys(), data.values()):
-        value["embedding"] = Vector(embed_model.embed_query(value.get("content", "")))
+        #value["embedding"] = Vector(embed_model.embed_query(value.get("content", "")))
         db.collection("news_articles").document(key).set(value)
 
 
@@ -99,7 +99,10 @@ if __name__ == "__main__":
 
     upload_news = True
 
-    clear_news = False
+    clear_news = True
+
+    if clear_news:
+        clear_collection(db.collection("news_articles"))
 
     if process_news:
         file_path = "./news_data.json" # from yle api
@@ -119,7 +122,4 @@ if __name__ == "__main__":
         with open(file_path, 'r') as file:
             data_dict = json.load(file)
         upload_articles(data_dict)
-    
-    if clear_news:
-        clear_collection(db.collection("news_articles"))
     
