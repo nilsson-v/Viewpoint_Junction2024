@@ -24,8 +24,9 @@ const App = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      console.log(data)
       // Access the "data" object and set it as flaskData
-      setFlaskData(data.articles); 
+      setFlaskData(data.data); 
     } catch (error) {
       setError(error.message);
     } finally {

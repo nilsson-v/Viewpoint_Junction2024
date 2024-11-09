@@ -6,8 +6,7 @@ const ShareViewpoint = () => {
   const [headline, setHeadline] = useState('');
   const [content, setContent] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     if (headline && content) {
       alert('Your article has been submitted!');
       setHeadline('');

@@ -32,7 +32,8 @@ const Home = () => {
       text: article.content,
       image: "https://via.placeholder.com/150", // Placeholder for image, update as needed
       time: formatTime(article.date),
-      topic: article.topic // Ensure topic is included
+      topic: article.topic, // Ensure topic is included
+      id: article.id
     }));
   };
 

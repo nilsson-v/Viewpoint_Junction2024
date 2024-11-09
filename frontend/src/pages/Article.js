@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Article.css';
 
@@ -9,20 +9,44 @@ const ArticleDetail = () => {
   // Access the article from location.state
   const { article } = location.state || {};
 
-  // Debugging: Log the article to ensure it's correctly passed
-  console.log("Article received in ArticleDetail:", article);
+  // State to store the conversation ID
+  const [conversationId, setConversationId] = useState('');
 
-  // Embed the Polis script when the component loads
+  // Function to generate a padded conversation ID based on article.id
+  const generateConversationId = (id) => {
+    if (!id) return null;
+    // Pad the article ID with "AA" until it's 10 characters long
+    return id.padEnd(10, 'AA').slice(0, 10);
+  };
+
+  // Set the conversation ID based on the article ID
   useEffect(() => {
+    if (!article || !article.id) {
+      console.error("Article or article ID is missing");
+      return;
+    }
+
+    // Generate the conversation ID using the article ID
+    const conversationId = generateConversationId(article.id);
+    setConversationId(conversationId);
+    console.log("Generated conversation ID:", conversationId);
+  }, [article]);
+
+  // Embed the Polis script when the conversation ID is set
+  useEffect(() => {
+    if (!conversationId) return;
+
     const script = document.createElement('script');
     script.src = 'https://pol.is/embed.js';
     script.async = true;
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      if (script) {
+        document.body.removeChild(script);
+      }
     };
-  }, []);
+  }, [conversationId]);
 
   // If no article is passed, show a fallback message
   if (!article) {
@@ -39,12 +63,17 @@ const ArticleDetail = () => {
           <h2>{article.title}</h2>
           <p>{article.text}</p> 
         </div>
-        <div
-          className="polis"
-          data-conversation_id="6kt4a4fxmn"
-        ></div>
+        {/* Embed the Polis conversation */}
+        {conversationId && (
+          <div
+            className="polis"
+            data-page_id={conversationId}
+            data-site_id="polis_site_id_RQwrz6mTCTd6yrfTDA"
+          ></div>
+        )}
       </div>
     </div>
   );
-}
+};
+
 export default ArticleDetail;

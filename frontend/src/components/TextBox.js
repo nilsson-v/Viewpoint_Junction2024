@@ -12,15 +12,11 @@ const TextBox = ({ headline, setHeadline, content, setContent, handleSubmit }) =
 
     // Create the JSON structure
     const jsonData = {
-      data: {
-        "1": { // Assuming '1' is a placeholder for unique id
           title: headline,
           date: timestamp,
           content: content,
           source: "User viewpoint"
-        }
-      }
-    };
+        };
 
     console.log("Generated JSON:", jsonData); // Log the JSON data to check the structure
 
