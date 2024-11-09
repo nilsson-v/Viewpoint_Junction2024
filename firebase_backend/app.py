@@ -9,7 +9,7 @@ from langchain_groq import ChatGroq
 from groq_keys import GROQ_API_KEY
 import os
 from flask_cors import CORS
-from backend_prompts import CREATE_POLIS_DISCUSSION_PROMPT
+from backend_prompts import CREATE_POLIS_DISCUSSION_PROMPT, ADD_RELEVANT_INFO_PROMPT
 import re
 import hashlib
 
@@ -221,13 +221,21 @@ def search_articles():
     # Return the list of articles as a JSON response
     return jsonify({"data": articles})
 
-@app.route("/ask_question")
+@app.route("/ask_question", methods=["POST"])
 def ask_question():
     data = request.json
 
-    
+    content = data.get("content", "")
+    question = data.get("question", "")
 
-    return jsonify({"data": "data"})
+    qa_prompt_template = ChatPromptTemplate.from_messages(
+                [("system", ADD_RELEVANT_INFO_PROMPT), ("user", "<article_content>{article}</article_content> <user_question>{text}</user_question>")]
+            )
+    qa_chain = qa_prompt_template | llm
+
+    response = qa_chain.invoke({"article": content, "text": question}).content
+
+    return jsonify({"response": response})
 
 
 # Run the Flask app on host 0.0.0.0 and port 8080

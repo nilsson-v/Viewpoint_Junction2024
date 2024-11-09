@@ -42,8 +42,15 @@ url55 = "http://127.0.0.1:8080/get_opinions"
 
 url777 = "http://127.0.0.1:8080/search_articles"
 
+url778 = "http://127.0.0.1:8080/ask_question"
+
+data7 = {
+    "content": "Canadian authorities announced on Friday that the country is preparing for a potential influx of asylum seekers from the United States, following Donald Trump's presidential election victory earlier this week. During Trump's first presidential term, tens of thousands of asylum seekers fled the US to Canada, seeking refuge in the neighboring country. In the aftermath of the presidential election, online searches related to moving to Canada from the US skyrocketed, increasing by a factor of ten on Tuesday, immediately after the election results were announced. The Canadian government is taking proactive measures to address the potential surge in asylum seekers, although the exact details of these preparations have not been disclosed. The move is likely a response to concerns that Trump's immigration policies may lead to an increase in the number of individuals seeking asylum in Canada. The country's immigration authorities are likely to face a significant challenge in processing the potential influx of asylum claims, and the government will need to ensure that it has the necessary resources and infrastructure in place to handle the situation. The development is a significant one, as it highlights the potential consequences of Trump's presidency on Canada's immigration policies and the country's relationship with its southern neighbor.",
+    "question": "Can you give me some historical background on Canadas border policy?"
+}
+
 try:
-    response = requests.post(url777, headers=headers, data=json.dumps(data4))
+    response = requests.post(url778, headers=headers, data=json.dumps(data7))
     #response = requests.get(url5)
     response.raise_for_status()  # Raises an HTTPError if the status is 4xx, 5xx
     print("\n\n\n\n")

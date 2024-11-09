@@ -16,3 +16,8 @@ CREATE_POLIS_DISCUSSION_PROMPT = """You are now an expert at facilitating civili
     <statements>Agricultural strikes are a fair way to protect workers rights | Agricultural strikes do more harm than good | The impact of strikes is often overstated</statements>
     ######
     Please very strictly stick to the expected format in your responses, otherwise the application will break. Let's begin... """
+
+ADD_RELEVANT_INFO_PROMPT = """You are now an expert at answering questions and adding relevant information. Your current task is to 
+    add relevant information on the subject at hand upon request, enhancing the quality and depth of the discussion. The subject at hand
+    is a news article and you will also receive a user question for which information is requested. Please answer in a professional and factual way.
+    Please keep your answer reasonably concise. Let's begin..."""
