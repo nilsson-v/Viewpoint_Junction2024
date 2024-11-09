@@ -1,26 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Karma:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;700&display=swap');
 /* Ensure the navbar height is accounted for by the page content */
 body {
   margin: 0;
 }
 
+/* Navbar Container Styles */
 .navbar-container {
   width: 100%;
-  background-color: #F2DFCE; /* Light beige background color */
-  border-bottom: 1px solid #ccc; /* Border at the bottom of the navbar */
+  background-color: #F2DFCE;
+  border-bottom: 1px solid #ccc;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000; /* Ensures it stays on top of other content */
-  transition: transform 0.3s ease-in-out; /* Smooth transition for hiding/showing navbar */
+  z-index: 1000;
+  transition: transform 0.5s ease-in-out;
 }
 
 .navbar-container.hide {
-  transform: translateY(-100%); /* Move the navbar out of view when scrolling down */
+  transform: translateY(-100%);
 }
 
 .navbar-container.show {
-  transform: translateY(0); /* Show the navbar */
+  transform: translateY(0);
 }
 
 .title-container {
@@ -32,9 +35,11 @@ body {
 }
 
 .title {
-  font-family: 'Times New Roman', serif;
+  font-family: 'Abhaya Libre', serif;
   font-size: 3rem;
+  letter-spacing: 0.2rem;
   margin: 0;
+  font-weight: lighter;
 }
 
 .all-links-container {
@@ -49,39 +54,73 @@ body {
   display: flex;
   justify-content: center;
   width: 60%; /* Adjust width based on how much space you want for the links */
+
 }
 
 .other-links-container-small {
   display: flex;
   justify-content: space-around;
   width: 70%; /* Adjust width based on how much space you want for the links */
+
 }
 
+/* Navigation Link Styles */
 .nav-item {
   text-decoration: none;
   color: black;
-  margin: 0 10px;
+  margin: 0 3vw;
   font-size: 1.5rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-item::after {
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px;
+  background-color: #1D50B7; /* Blue underline */
+  position: absolute;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.nav-item.active {
+  color: #1D50B7; /* Blue color for active link */
+}
+
+.nav-item.active::after {
+  width: 100%; /* Full underline for active link */
 }
 
 .nav-item:hover {
-  color: blue;
-  text-decoration: underline;
+  color: #1D50B7;
+}
+
+.nav-item:hover::after {
+  width: 100%;
 }
 
 .viewpoint-link-container {
   display: flex;
-  width: 30%;
+  width: 35%;
 }
 
 .viewpoint {
   text-decoration: none;
   color: black;
   font-size: 1.5rem;
+  position: relative;
+  transition: color 0.3s ease;
 }
 
 .viewpoint:hover {
-  color: blue;
-  text-decoration: underline;
+  content: '';
+  display: block;
+  width: 0;
+  height: 2px; /* Thickness of the line */
+  background-color: #1D50B7; /* Blue color for the line */
+  position: absolute;
+  left: 0;
+  transition: width 0.3s ease;
 }
-   
