@@ -1,0 +1,92 @@
+{
+  "1": {
+    "title": "Qatar asks Hamas leaders to leave after US pressure",
+    "date": "2024-11-09T10:00:00Z",
+    "content": "Warren Buffett has bought a new home in Chinatown...",
+    "subtopic": "US economy",
+    "statements": [],
+    "topic": "Politics",
+    "source": "Reuters"
+  },
+  "2": {
+    "title": "AI Breakthroughs in Healthcare: What's Next?",
+    "date": "2024-11-08T15:30:00Z",
+    "content": "Artificial intelligence has made significant strides in healthcare...",
+    "subtopic": "Technology",
+    "statements": [],
+    "topic": "Healthcare",
+    "source": "TechCrunch"
+  },
+  "3": {
+    "title": "Germany to Increase Military Spending Amid Growing Tensions",
+    "date": "2024-11-09T11:45:00Z",
+    "content": "The German government has announced plans to significantly boost its military spending as part of its response to rising geopolitical tensions in Europe...",
+    "subtopic": "Military Affairs",
+    "statements": [],
+    "topic": "Politics",
+    "source": "BBC News"
+  },
+  "4": {
+    "title": "Breakthrough in Quantum Computing Could Revolutionize Banking",
+    "date": "2024-11-08T17:00:00Z",
+    "content": "Quantum computing, once a concept confined to theoretical physics and academic research, is rapidly evolving into a transformative technology with the potential to revolutionize industries across the globe...",
+    "subtopic": "Technology",
+    "statements": [],
+    "topic": "Finance",
+    "source": "Financial Times"
+  },
+  "5": {
+    "title": "Finnish Parliament Passes Controversial Education Reform",
+    "date": "2024-11-10T10:00:00Z",
+    "content": "The Finnish Parliament has approved a controversial education reform that aims to reduce the number of public schools across the country. The reform has sparked widespread debate among teachers' unions and parents about its impact on children's access to quality education...",
+    "subtopic": "Education",
+    "statements": [],
+    "topic": "Internal Affairs",
+    "source": "Helsinki Times"
+  },
+  "6": {
+    "title": "Sweden Tightens Immigration Laws Amid Rising Tensions",
+    "date": "2024-11-09T14:30:00Z",
+    "content": "In response to increasing public concerns over immigration, the Swedish government has introduced new laws to restrict asylum applications. The new measures aim to address fears of overpopulation and strain on the country's welfare system...",
+    "subtopic": "Immigration",
+    "statements": [],
+    "topic": "Internal Affairs",
+    "source": "Swedish News"
+  },
+  "7": {
+    "title": "Prime Minister Calls for Immediate Action on Climate Change",
+    "date": "2024-11-08T12:00:00Z",
+    "content": "In a bid to combat the worsening climate crisis, the Prime Minister of Norway has announced a series of emergency measures to reduce carbon emissions and promote green energy. The plan includes large investments in renewable energy and stricter regulations on industrial pollution...",
+    "subtopic": "Climate Change",
+    "statements": [],
+    "topic": "Internal Affairs",
+    "source": "Norwegian Press"
+  },
+  "8": {
+    "title": "US Congress Debates New Tax Plan Amid Economic Uncertainty",
+    "date": "2024-11-10T16:00:00Z",
+    "content": "As the US economy faces a potential downturn, Congress is debating a new tax reform plan aimed at stimulating growth. The plan proposes cuts in corporate tax rates and increased spending on infrastructure, though it has received mixed reactions from economists and lawmakers...",
+    "subtopic": "Economy",
+    "statements": [],
+    "topic": "United States",
+    "source": "The New York Times"
+  },
+  "9": {
+    "title": "California Approves Major Housing Bill to Combat Homelessness",
+    "date": "2024-11-09T18:30:00Z",
+    "content": "The California state legislature has passed a sweeping housing bill designed to address the state's growing homelessness crisis. The bill includes measures to build affordable housing, provide mental health services, and increase funding for shelters and supportive services...",
+    "subtopic": "Housing",
+    "statements": [],
+    "topic": "United States",
+    "source": "Los Angeles Times"
+  },
+  "10": {
+    "title": "US President Announces New Foreign Policy Strategy in Asia",
+    "date": "2024-11-08T17:00:00Z",
+    "content": "In a bold shift in US foreign policy, President Biden has announced a new strategy for engagement with Asia, emphasizing stronger economic partnerships and security agreements with key countries like Japan, South Korea, and India, in response to growing concerns about China's influence in the region...",
+    "subtopic": "Foreign Policy",
+    "statements": [],
+    "topic": "United States",
+    "source": "Washington Post"
+  }
+}

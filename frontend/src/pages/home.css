@@ -1,95 +1,154 @@
+
 .home {
-  padding: 20px;
+  max-width: 82%;
+  margin: 0 auto;
+  padding-top: 20vh; /* Add padding equal to the height of the navbar */
   display: flex;
   flex-direction: column;
 }
-
-.section-title {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+.first-content-container {
+  display: flex;
+  justify-content: space-between; /* Aligns section-title on the left and section-links on the right */
+  align-items: center;
+  width: 100%;
 }
 
-/* Section Links positioned to the top-right */
+.section-title {
+  margin: 0; /* Removes default margin */
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 125%; /* 25% longer than the width of the "Happening Now" text */
+  background-color: black;
+  margin-top: 5px; /* Space between text and line */
+}
+
 .section-links {
   display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-  margin-bottom: 30px;
-  cursor: pointer;
-  position: sticky;
-  top: 0;
-  background-color: #f8e9dd;
-  padding: 10px;
+  justify-content: space-around; /* Evenly spaces out the links */
+  width: 33%; /* Ensures the links take up the last third of the container */
+  padding-left: 20px; /* Optional: add space between the links and the container's edge */
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .section-links span {
-  text-decoration: underline;
-  color: #4a4a4a;
   cursor: pointer;
 }
 
-.section-links span:hover {
-  color: #000;
-}
 
+
+
+/* Newscards */
 .news-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(100px, 1fr));
-  gap: 20px;
+  row-gap: 15vh;
 }
 
 .news-card {
-  background-color: #f7f1e5;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  max-height: 600px;
+  background-color: #F2DFCE;
+  padding: 5% 5% 5% 5%;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  height: 35vh;
 }
 
+.news-grid > .news-card:nth-child(odd) {
+  justify-self: start; /* Aligns odd-numbered cards to the start */
+}
+
+.news-grid > .news-card:nth-child(even) {
+  justify-self: end; /* Aligns even-numbered cards to the end */
+}
+.top-content {
+  display: flex;
+  justify-content: space-between;
+  height: 25vh; /* Adjust the height to fit the layout */
+}
+.top-text-container {
+  max-width: 60%;
+}
 .tag {
-  background-color: #a96060;
-  color: white;
-  padding: 3px 8px;
-  border-radius: 5px;
+  font-weight: bold;
+  color: rgb(154, 36, 36);
   margin-bottom: 10px;
+  border: 1px solid black; /* Adds a black border */
+  padding: 5px; /* Optional: Adds some padding inside the border for better spacing */
+  width: fit-content;
 }
-
 .news-title {
-  font-size: 1.25rem;
+  font-size:2rem;
+  font-weight: bold;
   margin: 10px 0;
 }
-
-.news-description {
-  font-size: 1rem;
-  margin-bottom: 15px;
-}
-
-.news-image {
-  width: 100%;
+.image-container {
   height: auto;
-  margin-bottom: 10px;
+  width: 38%; /* Make image container take 40% of the space */
 }
+.news-image {
+  width: 100%; /* Make the image take up the full width of its container */
+  max-height: 100%; /* Make the image take up the full height of its container */
+  object-fit: cover; /* This ensures the image covers the container without distortion */
+  margin-bottom: 10px;
+  }
 
+.bottom-container{
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid black;
+  max-width: 100%;
+  height: 25%;
+}
+.news-description {
+  max-width: 100%;
+  font-size: 1rem;
+  margin: 0;
+}
 .news-time {
+  font-weight: bolder;
   font-size: 0.9rem;
-  color: #666;
+  color: #000000;
+  margin: 0;
 }
 
 .sub-header {
   font-size: 1.8rem;
-  margin-top: 40px;
-  border-bottom: 2px solid #ddd;
-  padding-bottom: 10px;
+  margin-top: 10vh;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  color: #000000;
 }
 
 .news-list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .news-item {
-  padding: 15px;
-  border-bottom: 1px solid #d3c7b5;
+  padding-right: 2vw;
+  padding-left: 2vw;
+  padding-top: 1.5vh;
+  border-top: 2px solid #00000030;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.section-tag {
+  font-weight: bold;
+  color: rgb(154, 36, 36);
+}
+
+.internal-header{
+  font-size: 2rem;
+  font-weight: bold;
+  padding-top: 1vh;
+}
+
+.internal-description{
+  font-size: 1.5rem;
 }

@@ -2,6 +2,7 @@
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 50px;
   }
   
   .back-button {
@@ -10,29 +11,24 @@
     cursor: pointer;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
+    margin-top: 70px;
     font-size: 1rem;
   }
   
-  .content-container {
+  .text-container {
     display: flex;
     gap: 20px;
   }
   
-  .article-content {
+  .article-text {
     flex: 2;
     background-color: #f8e9dd;
     padding: 20px;
     border-radius: 10px;
   }
-  
-  .placeholder {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    background-color: #f7f1e5;
-    padding: 10px;
-    border-radius: 10px;
+
+  .polis {
+    background-color: #f8e9dd; /* Set the background color */
+    color: #333; /* Change text color */
   }
-  

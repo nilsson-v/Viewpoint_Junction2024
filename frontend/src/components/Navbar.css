@@ -1,32 +1,87 @@
-.navbar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .title {
-    font-size: 3rem;
-    margin: 0;
-  }
-  
-  .nav-links {
-    display: flex;
-    gap: 50px;
-    justify-content: center;
-    background-color: #d1c7b9;
-    padding: 10px 0;
-    width: 100%;
-  }
-  
-  .nav-item {
-    text-decoration: none;
-    color: #2e2e2e;
-    font-weight: 500;
-  }
-  
-  .nav-item:hover,
-  .nav-item.active {
-    border-bottom: 2px solid #2e2e2e;
-  }
-  
+/* Ensure the navbar height is accounted for by the page content */
+body {
+  margin: 0;
+}
+
+.navbar-container {
+  width: 100%;
+  background-color: #F2DFCE; /* Light beige background color */
+  border-bottom: 1px solid #ccc; /* Border at the bottom of the navbar */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ensures it stays on top of other content */
+  transition: transform 0.3s ease-in-out; /* Smooth transition for hiding/showing navbar */
+}
+
+.navbar-container.hide {
+  transform: translateY(-100%); /* Move the navbar out of view when scrolling down */
+}
+
+.navbar-container.show {
+  transform: translateY(0); /* Show the navbar */
+}
+
+.title-container {
+  padding: 2vh 0vh 2vh 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  align-items: center;     /* Centers the content vertically */
+}
+
+.title {
+  font-family: 'Times New Roman', serif;
+  font-size: 3rem;
+  margin: 0;
+}
+
+.all-links-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1vh;
+  background-color: #D3CBCB; /* Grey background for the links container */
+}
+
+.other-links-container {
+  display: flex;
+  justify-content: center;
+  width: 60%; /* Adjust width based on how much space you want for the links */
+}
+
+.other-links-container-small {
+  display: flex;
+  justify-content: space-around;
+  width: 70%; /* Adjust width based on how much space you want for the links */
+}
+
+.nav-item {
+  text-decoration: none;
+  color: black;
+  margin: 0 10px;
+  font-size: 1.5rem;
+}
+
+.nav-item:hover {
+  color: blue;
+  text-decoration: underline;
+}
+
+.viewpoint-link-container {
+  display: flex;
+  width: 30%;
+}
+
+.viewpoint {
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+}
+
+.viewpoint:hover {
+  color: blue;
+  text-decoration: underline;
+}
+   
