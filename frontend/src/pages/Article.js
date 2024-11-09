@@ -6,31 +6,39 @@ const ArticleDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Access the article from location.state
-  const { article } = location.state || {};
+  // Access the article or opinion from location.state
+  const { article, opinion } = location.state || {};
 
   // State to store the conversation ID
   const [conversationId, setConversationId] = useState('');
 
-  // Function to generate a padded conversation ID based on article.id
-  const generateConversationId = (id) => {
+  // Function to generate a conversation ID
+  const generateConversationId = (id, isOpinion = false) => {
     if (!id) return null;
-    // Pad the article ID with "AA" until it's 10 characters long
+    // For opinions: Use the first 10 characters of the ID
+    if (isOpinion) {
+      return id.slice(0, 10);
+    }
+    // For articles: Pad the article ID with "AA" until it's 10 characters long
     return id.padEnd(10, 'AA').slice(0, 10);
   };
 
-  // Set the conversation ID based on the article ID
+  // Determine if we are displaying an article or an opinion
+  const content = article || opinion;
+  const isOpinion = !!opinion;
+
+  // Set the conversation ID based on the content ID
   useEffect(() => {
-    if (!article || !article.id) {
-      console.error("Article or article ID is missing");
+    if (!content || !content.id) {
+      console.error("Content or content ID is missing");
       return;
     }
 
-    // Generate the conversation ID using the article ID
-    const conversationId = generateConversationId(article.id);
+    // Generate the conversation ID using the content ID
+    const conversationId = generateConversationId(content.id, isOpinion);
     setConversationId(conversationId);
     console.log("Generated conversation ID:", conversationId);
-  }, [article]);
+  }, [content, isOpinion]);
 
   // Embed the Polis script when the conversation ID is set
   useEffect(() => {
@@ -48,9 +56,9 @@ const ArticleDetail = () => {
     };
   }, [conversationId]);
 
-  // If no article is passed, show a fallback message
-  if (!article) {
-    return <p>No article found</p>;
+  // If no content is passed, show a fallback message
+  if (!content) {
+    return <p>No content found</p>;
   }
 
   return (
@@ -58,10 +66,10 @@ const ArticleDetail = () => {
       {/* Back Button */}
       <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
       <div className="text-container">
-        {/* Article Content */}
+        {/* Content (Article or Opinion) */}
         <div className="article-text">
-          <h2>{article.title}</h2>
-          <p>{article.text}</p> 
+          <h2>{content.title}</h2>
+          <p>{content.text || content.description}</p>
         </div>
         {/* Embed the Polis conversation */}
         {conversationId && (
@@ -69,6 +77,12 @@ const ArticleDetail = () => {
             className="polis"
             data-page_id={conversationId}
             data-site_id="polis_site_id_RQwrz6mTCTd6yrfTDA"
+            show_vis="true"
+            auth_needed_to_vote="false"
+            auth_needed_to_write="false"
+            ucsd="false"
+            auth_opt_fb="false"
+            auth_opt_tw="false"
           ></div>
         )}
       </div>

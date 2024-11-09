@@ -1,21 +1,23 @@
 import React, { useContext, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { DataContext } from '../App'; // Import the context
 import './topics.css';
 
 const Topics = () => {
   // Access both flaskData (articles) and opinionsData from the DataContext
   const { flaskData, opinionsData, loading, error } = useContext(DataContext);
-  
+
+  const navigate = useNavigate(); // Initialize useNavigate
   const carouselRef = useRef(null);
   const opinionsRef = useRef(null);
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [opinionsIndex, setOpinionsIndex] = useState(0);
 
   // Define the number of items to show at a time
   const itemsPerPage = 3;
-  const totalItems = 6; // Number of topics to show
-  const totalOpinions = 6; // Number of opinions to show
+  const totalItems = 6;
+  const totalOpinions = 6;
 
   // Transform the data for topics
   const transformData = (data) => {
@@ -23,7 +25,9 @@ const Topics = () => {
     return Object.values(data).map((item) => ({
       title: item.title,
       description: getFirstWords(item.content, 40),
-      topic: item.topic
+      topic: item.topic,
+      id: item.id, // Ensure each item has an ID
+      text: item.content // Include the full content for the article page
     }));
   };
 
@@ -40,6 +44,11 @@ const Topics = () => {
   // Transform the fetched data
   const topicsData = flaskData ? transformData(flaskData) : [];
   const opinionsTransformedData = opinionsData ? transformData(opinionsData) : [];
+
+  // Handle article click to navigate to the Article page
+  const handleArticleClick = (article) => {
+    navigate('/article', { state: { article } });
+  };
 
   // Functions for scrolling
   const scrollRight = (carouselRef, setIndex, index, totalItems) => {
@@ -74,7 +83,11 @@ const Topics = () => {
         )}
         <div className="topics-grid" ref={carouselRef}>
           {topicsData.map((topic, index) => (
-            <div key={index} className="topic-card">
+            <div
+              key={index}
+              className="topic-card"
+              onClick={() => handleArticleClick(topic)} // Add onClick handler
+            >
               <div className="topic-content">
                 <h4 className="topic-title">{topic.title}</h4>
                 <p className="topic-description">{topic.description}</p>
@@ -99,7 +112,11 @@ const Topics = () => {
         )}
         <div className="topics-grid" ref={opinionsRef}>
           {opinionsTransformedData.map((opinion, index) => (
-            <div key={index} className="topic-card">
+            <div
+              key={index}
+              className="topic-card"
+              onClick={() => handleArticleClick(opinion)} // Add onClick handler for opinions
+            >
               <div className="topic-content">
                 <h4 className="topic-title">{opinion.title}</h4>
                 <p className="topic-description">{opinion.description}</p>
