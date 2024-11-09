@@ -1,0 +1,14 @@
+.share-viewpoint-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+    background-color: #f8e9dd;
+    border-radius: 10px;
+  }
+  
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  

@@ -1,0 +1,42 @@
+.text-box-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .headline-input {
+    padding: 15px;
+    border: 1px solid #d3c7b5;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #f7f1e5;
+  }
+  
+  .content-textarea {
+    padding: 15px;
+    height: 150px;
+    border: 1px solid #d3c7b5;
+    border-radius: 10px;
+    resize: vertical;
+    font-size: 1rem;
+    background-color: #f7f1e5;
+  }
+  
+  .send-button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    background-color: #6a6a6a;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .send-button:hover {
+    background-color: #4a4a4a;
+  }
+  
