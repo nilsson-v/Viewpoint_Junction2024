@@ -6,7 +6,7 @@ from firebase_admin import credentials, firestore
 from google.cloud.firestore_v1.vector import Vector
 from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
 from langchain_groq import ChatGroq
-from config_private import GROQ_API_KEY
+from groq_keys import GROQ_API_KEY
 import os
 
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
@@ -27,7 +27,6 @@ firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 embed_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-l6-v2")
-
 
 
 @app.route("/get_articles", methods=["GET"])
@@ -57,8 +56,6 @@ def get_article(article_id):
         return jsonify({"article": doc.to_dict(), "id": doc.id})
     else:
         return jsonify({"error": "Article not found"}), 404
-    
-
     
 
 @app.route("/embed_text", methods=["POST"])

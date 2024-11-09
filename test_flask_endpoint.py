@@ -4,6 +4,7 @@ url1 = "http://127.0.0.1:8080/embed_text"
 url2 = "http://127.0.0.1:8080/add_article"
 url3 = "http://127.0.0.1:8080/similarity_search_article"
 url4 = "http://127.0.0.1:8080/generate_text"
+url5 = "http://127.0.0.1:8080/get_article/article_id"
 
 data1 = {"text": "Test input for embedding"}
 
@@ -20,7 +21,7 @@ data3 = {
 data4 = {"text": "What is the best way to drink coffee?"}
 
 try:
-    response = requests.post(url4, json=data4)
+    response = requests.get(url5)
     response.raise_for_status()  # Raises an HTTPError if the status is 4xx, 5xx
     print("\n\n\n\n")
     print(response.json())
