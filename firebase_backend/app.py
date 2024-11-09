@@ -1,10 +1,23 @@
 from flask import Flask, request, jsonify
 from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_core.prompts import ChatPromptTemplate
 import firebase_admin
 from firebase_admin import credentials, firestore
 from google.cloud.firestore_v1.vector import Vector
 from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
+from langchain_groq import ChatGroq
+from config_private import GROQ_API_KEY
+import os
 
+os.environ["GROQ_API_KEY"] = GROQ_API_KEY
+
+llm = ChatGroq(
+    model="gemma2-9b-it",
+    temperature=0.2,
+    max_tokens=None,
+    timeout=None,
+    max_retries=2,
+)
 
 app = Flask(__name__)
 
@@ -70,6 +83,22 @@ def similarity_search_article():
     response_data = [f"{doc.id}), Distance: {doc.get('vector_distance')}" for doc in docs]
 
     return jsonify({"response": response_data})
+
+
+@app.route("/generate_text", methods=["POST"])
+def generateText():
+    data = request.json
+    user_input = data.get("text", )
+
+    prompt_template = ChatPromptTemplate.from_messages(
+                [("system", "You are now an assistant whose task is simple QA. Please briefly answer user questions. Lets begin..."), ("user", "{text}")]
+            )
+
+    chain = prompt_template | llm
+
+    response = chain.invoke({"text": user_input})
+
+    return jsonify({"response": response.content})
 
 
 if __name__ == "__main__":
