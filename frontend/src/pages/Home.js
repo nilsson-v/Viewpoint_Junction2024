@@ -1,99 +1,97 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
+// Custom hook to fetch data from Flask API
+const useFetchFlaskData = (apiUrl) => {
+  const [flaskData, setFlaskData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Function to fetch data from Flask API
+  const fetchData = async () => {
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setFlaskData(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch data on component mount
+  useEffect(() => {
+    fetchData();
+  }, [apiUrl]);
+
+  return { flaskData, loading, error };
+};
+
+// Helper function to transform JSON data
+const transformData = (data) => {
+  if (!data) return [];
+  return Object.values(data).map((article) => ({
+    tag: article.subtopic || "General",
+    title: article.title,
+    description: getFirstWords(article.content, 100), // Get the first 50 words
+    image: "https://via.placeholder.com/150", // Placeholder for image, update as needed
+    time: formatTime(article.date)
+  }));
+};
+
+// Helper function to get the first N words of a string
+const getFirstWords = (text, wordCount) => {
+  const words = text.split(' ');
+  return words.slice(0, wordCount).join(' ') + (words.length > wordCount ? "..." : "");
+};
+
+// Helper function to format the timestamp
+const formatTime = (timestamp) => {
+  const date = new Date(timestamp);
+  const now = new Date();
+  const diffInHours = Math.floor((now - date) / (1000 * 60 * 60));
+  return diffInHours === 0 ? "Just now" : `${diffInHours} hours ago`;
+};
+
 const Home = () => {
-  const newsData = [
-    {
-      tag: "Us economy",
-      title: "Qatar asks Hamas leaders to leave after US pressure",
-      description: "Warren Buffet has bought a new home in Chinatown and is looking for a nice wife...",
-      image: "https://via.placeholder.com/150",
-      time: "5 hours ago"
-    },
-    {
-      tag: "Us economy",
-      title: "Something really interesting has happened in US and BLA BLa",
-      description: "Warren Buffet has bought a new home in Chinatown and is looking for a nice wife...",
-      image: "https://via.placeholder.com/150",
-      time: "5 hours ago"
-    },
-    {
-      tag: "Us economy",
-      title: "Something really interesting has happened in US and BLA BLa",
-      description: "Warren Buffet has bought a new home in Chinatown and is looking for a nice wife...",
-      image: "https://via.placeholder.com/150",
-      time: "5 hours ago"
-    },
-    {
-      tag: "Us economy",
-      title: "Something really interesting has happened in US and BLA BLa",
-      description: "Warren Buffet has bought a new home in Chinatown and is looking for a nice wife...",
-      image: "https://via.placeholder.com/150",
-      time: "5 hours ago"
-    },
-  ];
+  const navigate = useNavigate();
 
-  const worldRef = useRef(null);
-  const internalRef = useRef(null);
-  const usRef = useRef(null);
+  // Fetching data from Flask API
+  const { flaskData, loading, error } = useFetchFlaskData('http://127.0.0.1:5000/api/data');
 
-  const scrollToSection = (ref) => {
-    window.scrollTo({
-      top: ref.current.offsetTop - 100,
-      behavior: 'smooth'
-    });
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  // Transform the data only if it's available
+  const newsData = flaskData ? transformData(flaskData) : [];
+
+  const handleArticleClick = (article) => {
+    navigate('/article', { state: { article } });
   };
 
   return (
     <div className="home">
-      {/* Section Links at the top-right */}
-      <div className="section-links">
-        <span onClick={() => scrollToSection(worldRef)}>World</span>
-        <span onClick={() => scrollToSection(internalRef)}>Internal Affairs</span>
-        <span onClick={() => scrollToSection(usRef)}>United States</span>
-      </div>
-
       <h2 className="section-title">Happening Now</h2>
-
-      {/* World Section */}
-      <section ref={worldRef} className="news-section">
-        <h3 className="sub-header">World</h3>
-        <div className="news-grid">
-          {newsData.map((news, index) => (
-            <div key={index} className="news-card">
-              <div className="tag">{news.tag}</div>
-              <h4 className="news-title">{news.title}</h4>
-              <p className="news-description">{news.description}</p>
-              <img src={news.image} alt={news.title} className="news-image" />
-              <p className="news-time">{news.time}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Internal Affairs Section */}
-      <section ref={internalRef} className="news-section">
-        <h3 className="sub-header">Internal Affairs</h3>
-        <div className="news-list">
-          <div className="news-item">
-            <span className="tag">Finnish Parliament Drama - 1 day ago</span>
-            <h4>Sanna Marin has bought a new car...</h4>
-            <p>Details of internal affairs...</p>
+      <div className="news-grid">
+        {newsData.map((news, index) => (
+          <div 
+            key={index} 
+            className="news-card"
+            onClick={() => handleArticleClick(news)}
+          >
+            <div className="tag">{news.tag}</div>
+            <h4 className="news-title">{news.title}</h4>
+            <p className="news-description">{news.description}</p>
+            <img src={news.image} alt={news.title} className="news-image" />
+            <p className="news-time">{news.time}</p>
           </div>
-        </div>
-      </section>
-
-      {/* United States Section */}
-      <section ref={usRef} className="news-section">
-        <h3 className="sub-header">United States</h3>
-        <div className="news-list">
-          <div className="news-item">
-            <span className="tag">US News - 2 hours ago</span>
-            <h4>Breaking news in the US...</h4>
-            <p>Updates on current events in the United States...</p>
-          </div>
-        </div>
-      </section>
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,38 @@
+.article-detail {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .back-button {
+    background-color: #f7f1e5;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  
+  .content-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .article-content {
+    flex: 2;
+    background-color: #f8e9dd;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .placeholder {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #f7f1e5;
+    padding: 10px;
+    border-radius: 10px;
+  }
+  
