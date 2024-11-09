@@ -1,10 +1,16 @@
 import requests
+import json
 
 url1 = "http://127.0.0.1:8080/embed_text"
 url2 = "http://127.0.0.1:8080/add_article"
 url3 = "http://127.0.0.1:8080/similarity_search_article"
 url4 = "http://127.0.0.1:8080/generate_text"
 url5 = "http://127.0.0.1:8080/get_articles_test"
+
+url6 = "https://flaskapi-529120302078.europe-north1.run.app/get_articles_test"
+url7 = "https://flaskapi-529120302078.europe-north1.run.app/generate_text"
+
+url10 = "https://flaskapi-529120302078.europe-north1.run.app/embed_text"
 
 data1 = {"text": "Test input for embedding"}
 
@@ -20,8 +26,12 @@ data3 = {
 
 data4 = {"text": "What is the best way to drink coffee?"}
 
+headers = {
+    'Content-Type': 'application/json',
+}
+
 try:
-    response = requests.get(url5)
+    response = requests.post(url7, headers=headers, data=json.dumps(data4))
     response.raise_for_status()  # Raises an HTTPError if the status is 4xx, 5xx
     print("\n\n\n\n")
     print(response.json())
