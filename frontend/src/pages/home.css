@@ -152,3 +152,31 @@
 .internal-description{
   font-size: 1.5rem;
 }
+
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Take full viewport height */
+  background-color: #f7f1e5; /* Optional background color */
+  font-size: 1.5rem;
+  font-weight: bold;
+  flex-direction: column;
+}
+
+.loading-spinner {
+  width: 100px; /* Set the size of your spinner */
+  height: 100px;
+  background-image: url('/public/viewpoint.png'); /* Path to your spinner image */
+  background-size: cover;
+  animation: spin 2s linear infinite; /* Spinning animation */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

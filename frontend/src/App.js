@@ -19,13 +19,13 @@ const App = () => {
   const fetchData = async () => {
     try {
       // Update the URL to match where your Flask app is hosted
-      const response = await fetch('https://flaskapi-529120302078.europe-north1.run.app/get_articles_test');
+      const response = await fetch('https://flaskapi-529120302078.europe-north1.run.app/get_articles');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
       // Access the "data" object and set it as flaskData
-      setFlaskData(data.data); // Assuming "data" is the key containing articles
+      setFlaskData(data.articles); 
     } catch (error) {
       setError(error.message);
     } finally {

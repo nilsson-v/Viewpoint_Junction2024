@@ -1,7 +1,7 @@
 import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../App'; // Import the context
-import './Home.css';
+import './home.css';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Home = () => {
     return Object.values(data).map((article) => ({
       tag: article.subtopic || "General",
       title: article.title,
-      description: getFirstWords(article.content, 40), // Get the first 40 words
+      description: getFirstWords(article.content, 30), // Get the first 40 words
       text: article.content,
       image: "https://via.placeholder.com/150", // Placeholder for image, update as needed
       time: formatTime(article.date),
@@ -50,7 +50,15 @@ const Home = () => {
   };
 
   // Check if the data is loading or if there's an error
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-spinner"></div> {/* Custom loading spinner */}
+        <p>Loading data, please wait...</p> {/* Show a simple loading message */}
+      </div>
+    );
+  }
+
   if (error) return <p>Error: {error}</p>;
 
   // Transform the data only if it's available
@@ -113,7 +121,7 @@ const Home = () => {
       <section ref={internalRef} className="news-section">
         <h3 className="sub-header">Internal Affairs</h3>
         <div className="news-list">
-            {worldNews.map((news, index) => (
+            {internalNews.map((news, index) => (
               <div
                 key={index}
                 onClick={() => handleArticleClick(news)}
@@ -133,7 +141,7 @@ const Home = () => {
        <section ref={usRef} className="news-section">
         <h3 className="sub-header">United States</h3>
         <div className="news-list">
-            {worldNews.map((news, index) => (
+            {usNews.map((news, index) => (
               <div
                 key={index}
                 onClick={() => handleArticleClick(news)}
