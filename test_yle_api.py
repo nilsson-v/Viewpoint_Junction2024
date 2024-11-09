@@ -63,7 +63,7 @@ def get_news_text(pages, params):
 
 
 # Define the API endpoint and parameters
-url = "https://external.api.yle.fi/v1/teletext/pages/102.json"
+url = "https://external.api.yle.fi/v1/teletext/pages/130.json"
 params = {
     "app_id": APP_ID,
     "app_key": APP_KEY
@@ -78,7 +78,7 @@ data = get_news_text(pages, params)
 print(data)
 
 # Path to the file where you want to write the JSON data
-file_path = './news_data.json'
+file_path = './news_data2.json'
 
 # Open the file in write mode ('w')
 with open(file_path, 'w') as file:
