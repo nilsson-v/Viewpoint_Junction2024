@@ -4,3 +4,4 @@ transformers
 sentence-transformers
 requests
 langchain_huggingface
+firebase_admin
