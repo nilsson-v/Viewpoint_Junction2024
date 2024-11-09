@@ -29,6 +29,38 @@ db = firestore.client()
 embed_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-l6-v2")
 
 
+
+@app.route("/get_articles", methods=["GET"])
+def get_articles():
+    # Reference the 'news_articles' collection
+    articles_ref = db.collection("news_articles")
+    docs = articles_ref.stream()
+
+    # Prepare a list to store all articles
+    articles = []
+
+    # Iterate through each document and add it to the list
+    for doc in docs:
+        article_data = doc.to_dict()
+        article_data["id"] = doc.id  # Include the document ID
+        articles.append(article_data)
+
+    # Return the list of articles as a JSON response
+    return jsonify({"articles": articles})
+
+
+@app.route("/get_article/<article_id>", methods=["GET"])
+def get_article(article_id):
+    doc_ref = db.collection("news_articles").document(article_id)
+    doc = doc_ref.get()
+    if doc.exists:
+        return jsonify({"article": doc.to_dict(), "id": doc.id})
+    else:
+        return jsonify({"error": "Article not found"}), 404
+    
+
+    
+
 @app.route("/embed_text", methods=["POST"])
 def embed_text():
     data = request.json
