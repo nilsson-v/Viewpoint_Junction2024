@@ -1,0 +1,94 @@
+
+.search {
+    max-width: 82%;
+    margin: 0 auto;
+    padding-top: 20vh; /* Add padding equal to the height of the navbar */
+    display: flex;
+    flex-direction: column;
+  }
+
+.news-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .news-item {
+    padding-right: 2vw;
+    padding-left: 2vw;
+    padding-top: 1.5vh;
+    border-top: 2px solid #00000030;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+  }
+  
+  .section-tag {
+    font-weight: bold;
+    color: rgb(154, 36, 36);
+  }
+  
+  .internal-header{
+    font-size: 2rem;
+    font-weight: bold;
+    padding-top: 1vh;
+  }
+  
+  .internal-description{
+    font-size: 1.5rem;
+  }
+
+  .search-bar-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    width: 80%;
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: #e1d9d9;
+    border: 1px solid black;
+    border-radius: 8px;
+    outline: none;
+  }
+  
+  .search-input:focus {
+    border-color: #007bff;
+  }
+
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    width: 70%;
+    padding: 10px;
+    font-size: 1.2rem;
+    background-color: #e1d9d9;
+    border: 1px solid black;
+    border-radius: 8px;
+    outline: none;
+    margin-right: 10px;
+  }
+  
+  .search-button {
+    padding: 10px 15px;
+    font-size: 1.2rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background-color: #0056b3;
+  }
+  
+
+
+  

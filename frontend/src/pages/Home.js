@@ -154,7 +154,7 @@ const Home = () => {
           </div>
       </section>
 
-       {/* Internal Affairs Section */}
+       {/* US Section */}
        <section ref={usRef} className="news-section">
         <h3 className="sub-header">United States</h3>
         <div className="news-list">

@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Topics from './pages/Topics';
 import ShareViewpoint from './pages/ShareViewpoint';
 import Article from './pages/Article';
+import Search from './pages/Search';
 import './App.css';
 
 // Create a Context to hold the fetched data
@@ -76,6 +77,7 @@ const App = () => {
             <Route path="/topics" element={<Topics />} />
             <Route path="/share" element={<ShareViewpoint />} />
             <Route path="/article" element={<Article />} />
+            <Route path="/search" element={<Search />} />
           </Routes>
         </div>
       </Router>
