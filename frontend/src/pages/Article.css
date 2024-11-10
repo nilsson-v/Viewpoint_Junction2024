@@ -1,34 +1,114 @@
+/* General Styles for the Article Page */
 .article-detail {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    margin-top: 50px;
-  }
-  
-  .back-button {
-    background-color: #f7f1e5;
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 0px;
-    margin-top: 70px;
-    font-size: 1rem;
-  }
-  
-  .text-container {
-    display: flex;
-    gap: 20px;
-  }
-  
-  .article-text {
-    flex: 2;
-    background-color: #f8e9dd;
-    padding: 20px;
-    border-radius: 10px;
-  }
+  max-width: 82%;
+  margin: 0 auto;
+  margin-top: 20vh; /* Add padding equal to the height of the navbar */
+  display: flex;
+  flex-direction: column;
+}
 
-  .polis {
-    background-color: #f8e9dd; /* Set the background color */
-    color: #333; /* Change text color */
-  }
+/* Back Button Styling */
+.back-button {
+  background-color: #f7f1e5;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: 5rem;
+}
+
+.back-button:hover {
+  background-color: #e0d8c8;
+}
+
+/* Container for the main content */
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-radius: 5px;
+  background-color: #f8e9dd;
+}
+
+/* Article Content Styles */
+.article-text {
+  background-color: #faf3ed;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes the answer box to the bottom */
+
+}
+
+/* Header and Paragraph Styling */
+.header-text {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.article-info {
+  font-size: 1rem;
+  line-height: 1.6;
+  padding: 10px;
+}
+
+/* Polis Embed Container Styling */
+.polis {
+  background-color: #f8d0ad;
+  color: #333;
+  width: 450%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+/* Answer Container Styling */
+.answer-container {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #f8e9dd;
+}
+
+/* Textarea Input Styling */
+.question-input {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  resize: none; /* Prevent manual resizing */
+  overflow: hidden; /* Hide scrollbar */
+}
+
+/* Button Styling */
+.submit-button {
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 3px solid #1D50B7;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #4f81a9;
+}
+
+/* Response Box Styling */
+.response-box {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 5px;
+  background-color: #f4faf7;
+  font-size: 1rem;
+}

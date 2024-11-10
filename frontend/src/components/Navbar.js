@@ -55,7 +55,7 @@ const Navbar = () => {
             className="nav-item" 
             activeClassName="active"
           >
-            Topics
+            News Topics & Opinions
           </NavLink>
         </div>
         <div className="viewpoint-link-container">

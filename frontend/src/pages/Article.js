@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Article.css';
 
@@ -8,6 +8,31 @@ const ArticleDetail = () => {
 
   // Access the article or opinion from location.state
   const { article, opinion } = location.state || {};
+
+  const [question, setQuestion] = useState('');
+  const [response, setResponse] = useState('');
+
+  // Ref to access the textarea
+  const textareaRef = useRef(null);
+
+  // Function to adjust the height of the textarea automatically
+  const handleInputChange = (e) => {
+    setQuestion(e.target.value);
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto'; // Reset height
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Set height based on content
+    }
+  };
+
+  const handleQuestionSubmit = (e) => {
+    e.preventDefault();
+    if (question.trim() === '') return;
+
+    console.log("Submitted question:", question);
+    const simulatedResponse = `This is a response to your question: "${question}"`;
+    setResponse(simulatedResponse);
+    setQuestion('');
+  };
 
   // State to store the conversation ID
   const [conversationId, setConversationId] = useState('');
@@ -27,6 +52,7 @@ const ArticleDetail = () => {
   const content = article || opinion;
   const isOpinion = !!opinion;
 
+
   // Set the conversation ID based on the content ID
   useEffect(() => {
     if (!content || !content.id) {
@@ -39,6 +65,7 @@ const ArticleDetail = () => {
     setConversationId(conversationId);
     console.log("Generated conversation ID:", conversationId);
   }, [content, isOpinion]);
+
 
   // Embed the Polis script when the conversation ID is set
   useEffect(() => {
@@ -63,14 +90,35 @@ const ArticleDetail = () => {
 
   return (
     <div className="article-detail">
-      {/* Back Button */}
-      <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
-      <div className="text-container">
-        {/* Content (Article or Opinion) */}
-        <div className="article-text">
-          <h2>{content.title}</h2>
-          <p>{content.text || content.description}</p>
+    <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+    <div className="content-container">
+      <div className="article-text">
+        <div className='text-container'>
+          <h2 className='header-text'>{article.title}</h2>
+          <p className='article-info'>{article.text}</p>
         </div>
+
+        {/* Answer Container at the bottom */}
+        <div className="answer-container">
+          <form onSubmit={handleQuestionSubmit}>
+            <textarea
+              ref={textareaRef}
+              className="question-input"
+              value={question}
+              onChange={handleInputChange}
+              placeholder="Type your question here..."
+              rows="1"
+            />
+            <button type="submit" className="submit-button">Submit Question</button>
+          </form>
+
+          {response && (
+            <div className="response-box">
+              <p>{response}</p>
+            </div>
+          )}
+        </div>
+      </div>
         {/* Embed the Polis conversation */}
         {conversationId && (
           <div
@@ -86,7 +134,7 @@ const ArticleDetail = () => {
           ></div>
         )}
       </div>
-    </div>
+      </div>
   );
 };
 

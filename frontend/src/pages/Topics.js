@@ -5,7 +5,7 @@ import './topics.css';
 
 const Topics = () => {
   // Access both flaskData (articles) and opinionsData from the DataContext
-  const { flaskData, opinionsData, loading, error } = useContext(DataContext);
+  const {flaskData, opinionsData, topicsData, loading, error } = useContext(DataContext);
 
   const navigate = useNavigate(); // Initialize useNavigate
   const carouselRef = useRef(null);
@@ -42,7 +42,12 @@ const Topics = () => {
   if (error) return <p>Error: {error}</p>;
 
   // Transform the fetched data
-  const topicsData = flaskData ? transformData(flaskData) : [];
+  //const newsData = flaskData ? transformData(flaskData) : [];
+  const sortedTopicsData = topicsData ? topicsData.map(({ topic, count }) => ({
+    title: topic,
+    description: `Count: ${count}`
+  })) : [];
+  
   const opinionsTransformedData = opinionsData ? transformData(opinionsData) : [];
 
   // Handle article click to navigate to the Article page
@@ -82,18 +87,16 @@ const Topics = () => {
           </button>
         )}
         <div className="topics-grid" ref={carouselRef}>
-          {topicsData.map((topic, index) => (
-            <div
-              key={index}
-              className="topic-card"
-              onClick={() => handleArticleClick(topic)} // Add onClick handler
-            >
-              <div className="topic-content">
-                <h4 className="topic-title">{topic.title}</h4>
-                <p className="topic-description">{topic.description}</p>
-              </div>
+        {sortedTopicsData.map((topic, index) => (
+          <div
+            key={index}
+            className="topic-card"
+          >
+            <div className="topic-content">
+              <h4 className="topic-title">{topic.title}</h4>
             </div>
-          ))}
+          </div>
+        ))}
         </div>
         {currentIndex + itemsPerPage < totalItems && (
           <button className="arrow right-arrow" onClick={() => scrollRight(carouselRef, setCurrentIndex, currentIndex, totalItems)}>

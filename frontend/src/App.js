@@ -13,9 +13,23 @@ export const DataContext = createContext();
 
 const App = () => {
   const [flaskData, setFlaskData] = useState(null);
-  const [opinionsData, setOpinionsData] = useState(null); // New state for opinions
+  const [opinionsData, setOpinionsData] = useState(null); 
+  const [topicsData, setTopicsData] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const fetchTopics = async () => {
+    try {
+      const response = await fetch('https://flaskapi-529120302078.europe-north1.run.app/get_topics');
+      if (!response.ok) {
+        throw new Error('Failed to fetch topics');
+      }
+      const data = await response.json();
+      setTopicsData(data.data);
+    } catch (err) {
+      throw new Error(`Articles Fetch Error: ${err.message}`);
+    }
+  };
 
   // Function to fetch data from the first endpoint
   const fetchArticles = async () => {
@@ -50,7 +64,7 @@ const App = () => {
     setLoading(true);
     setError(null);
     try {
-      await Promise.all([fetchArticles(), fetchOpinions()]);
+      await Promise.all([fetchArticles(), fetchOpinions(), fetchTopics()]);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -68,7 +82,7 @@ const App = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <DataContext.Provider value={{ flaskData, opinionsData, loading, error }}>
+    <DataContext.Provider value={{ flaskData, opinionsData, topicsData, loading, error }}>
       <Router>
         <div className="App">
           <Navbar />
