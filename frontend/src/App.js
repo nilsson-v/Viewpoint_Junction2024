@@ -1,11 +1,12 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Topics from './pages/Topics';
 import ShareViewpoint from './pages/ShareViewpoint';
 import Article from './pages/Article';
 import Search from './pages/Search';
+import MockCaptchaPage from './pages/MockCaptchaPage';
 import './App.css';
 
 // Create a Context to hold the fetched data
@@ -17,6 +18,7 @@ const App = () => {
   const [topicsData, setTopicsData] = useState(null); 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isVerified, setIsVerified] = useState(false);
 
   const fetchTopics = async () => {
     try {
@@ -77,6 +79,12 @@ const App = () => {
     fetchData();
   }, []);
 
+  // Check if the user has already completed the CAPTCHA
+  useEffect(() => {
+    const verified = localStorage.getItem("isVerified") === "true";
+    setIsVerified(verified);
+  }, []);
+
   // If data is still loading or an error occurs, display loading/error message
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -87,7 +95,16 @@ const App = () => {
         <div className="App">
           <Navbar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            {/* Display the CAPTCHA page only if the user has not verified yet */}
+            {!isVerified ? (
+              <Route
+                path="/"
+                element={<MockCaptchaPage setIsVerified={setIsVerified} />}
+              />
+            ) : (
+              <Route path="/" element={<Navigate to="/home" />} />
+            )}
+            <Route path="/home" element={<Home />} />
             <Route path="/topics" element={<Topics />} />
             <Route path="/share" element={<ShareViewpoint />} />
             <Route path="/article" element={<Article />} />

@@ -41,6 +41,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Pushes the answer box to the bottom */
+  width: 60%;
 
 }
 
@@ -62,7 +63,7 @@
 .polis {
   background-color: #f8d0ad;
   color: #333;
-  width: 450%;
+  width: 40%;
   display: flex;
   justify-content: center;
   padding: 20px;
