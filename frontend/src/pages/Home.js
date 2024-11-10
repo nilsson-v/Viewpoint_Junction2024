@@ -26,7 +26,8 @@ const Home = () => {
   const transformData = (data) => {
     if (!data) return [];
     return Object.values(data).map((article) => ({
-      tag: article.subtopic || "General",
+      tag: article.topic || "General",
+      subtopic: article.subtopic,
       title: article.title,
       description: getFirstWords(article.content, 30), // Get the first 40 words
       text: article.content,
@@ -144,7 +145,7 @@ const Home = () => {
                 onClick={() => handleArticleClick(news)}
               >
               <div className="news-item">
-                <div className="section-tag">{news.tag}</div>
+                <div className="section-tag">{news.subtopic}</div>
                 <div className="internal-header">{news.title}</div>
                 <div className="internal-description">{news.description}</div>
                 {/* <p className="internal-time">{news.time}</p> */}
@@ -164,7 +165,7 @@ const Home = () => {
                 onClick={() => handleArticleClick(news)}
               >
               <div className="news-item">
-                <div className="section-tag">{news.tag}</div>
+                <div className="section-tag">{news.subtopic}</div>
                 <div className="internal-header">{news.title}</div>
                 <div className="internal-description">{news.description}</div>
                 {/* <p className="internal-time">{news.time}</p> */}
