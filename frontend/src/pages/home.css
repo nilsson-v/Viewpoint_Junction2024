@@ -67,11 +67,12 @@
 .top-content {
   display: flex;
   justify-content: space-between;
-  height: 25vh; /* Adjust the height to fit the layout */
+  height: 20vh; /* Adjust the height to fit the layout */
 }
 
 .top-text-container {
   max-width: 60%;
+  height:20vh;
 }
 
 .tag {
@@ -90,6 +91,7 @@
 }
 
 .image-container {
+  object-fit: cover;
   height: auto;
   width: 38%; /* Make image container take 40% of the space */
 }
@@ -107,6 +109,7 @@
   border-bottom: 1px solid black;
   max-width: 100%;
   height: 25%;
+  padding-bottom: 1vh;;
 }
 .news-description {
   max-width: 100%;

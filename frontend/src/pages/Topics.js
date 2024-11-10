@@ -117,7 +117,7 @@ const Topics = () => {
           {opinionsTransformedData.map((opinion, index) => (
             <div
               key={index}
-              className="topic-card"
+              className="opinion-card"
               onClick={() => handleArticleClick(opinion)} // Add onClick handler for opinions
             >
               <div className="topic-content">

@@ -33,8 +33,25 @@
 .topic-card {
   flex: 0 0 30%; /* Show exactly 3 cards */
   max-width: 33.33%;
+  height: 20vh;
+  background-color: #e0eaf5;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+  margin-right: 3vw;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  flex-direction: column;
+}
+
+.opinion-card {
+  flex: 0 0 30%; /* Show exactly 3 cards */
+  max-width: 33.33%;
   height: 40vh;
   background-color: #F2DFCE;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2);
   margin-right: 3vw;
   border-radius: 10px;
   text-align: center;
