@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
 }
+
 .first-content-container {
   display: flex;
   justify-content: space-between; /* Aligns section-title on the left and section-links on the right */

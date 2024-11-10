@@ -24,15 +24,45 @@ const ArticleDetail = () => {
     }
   };
 
-  const handleQuestionSubmit = (e) => {
+  const handleQuestionSubmit = async (e) => {
     e.preventDefault();
     if (question.trim() === '') return;
-
-    console.log("Submitted question:", question);
-    const simulatedResponse = `This is a response to your question: "${question}"`;
-    setResponse(simulatedResponse);
+  
+    try {
+      // Prepare the data to be sent in the request
+      const payload = {
+        content: article?.text || opinion?.text || '',
+        question: question,
+      };
+  
+      // Send a POST request to the specified endpoint
+      const response = await fetch('https://flaskapi-529120302078.europe-north1.run.app/ask_question', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      // Parse the JSON response
+      const data = await response.json();
+  
+      if (response.ok) {
+        // Display the server response in the response box
+        setResponse(data.response || 'No answer provided.');
+      } else {
+        // Handle any error responses
+        setResponse('Error: Could not get a response. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error submitting question:', error);
+      setResponse('An error occurred. Please try again later.');
+    }
+  
+    // Clear the question input field after submission
     setQuestion('');
   };
+  
 
   // State to store the conversation ID
   const [conversationId, setConversationId] = useState('');
@@ -106,7 +136,7 @@ const ArticleDetail = () => {
               className="question-input"
               value={question}
               onChange={handleInputChange}
-              placeholder="Type your question here..."
+              placeholder="Ask for additional information..."
               rows="1"
             />
             <button type="submit" className="submit-button">Submit Question</button>
