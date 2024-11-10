@@ -2,6 +2,7 @@ import React, { useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../App'; 
 import { useEffect } from 'react';
+import LoadingScreen from './Loading.js';
 import './home.css';
 
 const Home = () => {
@@ -74,8 +75,9 @@ const Home = () => {
     }
   }, [flaskData]);
 
-  // Check if the data is loading or if there's an error
-  if (loading) return <p>Data is loading...</p>
+ 
+  // Show loading screen if data is still loading
+  if (loading) return <LoadingScreen />;
 
   if (error) return <p>Error: {error}</p>;
 

@@ -6,20 +6,35 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(window.scrollY);
   const [isVisible, setIsVisible] = useState(true);
 
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
   // Handle scroll to show/hide the navbar based on scroll direction
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
-    if (currentScrollY > lastScrollY) {
-      // Scrolling down - hide navbar
-      setIsVisible(false);
-    } else {
-      // Scrolling up - show navbar
-      setIsVisible(true);
-    }
+    if (isSafari) {
+      if (currentScrollY < lastScrollY) {
+        // Scrolling down - hide navbar
+        setIsVisible(false);
+      } else {
+        // Scrolling up - show navbar
+        setIsVisible(true);
+      }
 
-    setLastScrollY(currentScrollY);
-  };
+      setLastScrollY(currentScrollY);
+    
+  } else {
+      if (currentScrollY > lastScrollY) {
+        // Scrolling down - hide navbar
+        setIsVisible(false);
+      } else {
+        // Scrolling up - show navbar
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    }; 
+  } 
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
