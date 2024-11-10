@@ -1,75 +1,102 @@
-# 🛠️ Project Setup Guide
+# Viewpoint
 
-Welcome to the Junction2024 project! This guide will help you set up the development environment quickly.
+**Enhancing Citizen Discourse through News, AI, and Real-Time Engagement**
 
-## 📋 Prerequisites
+---
 
-1. **Python**: Make sure you have Python 3.7 or newer installed.
-2. **Virtual Environment**: It’s recommended to use a virtual environment to manage dependencies.
+## Project Overview
 
-## 🚀 Quick Start
+Viewpoint is a platform that aims to elevate public discourse by merging credible news with vibrant, real-time conversations. It empowers users to explore reliable news articles, voice their opinions, and join meaningful discussions, creating an inclusive space where every perspective matters. By transforming how we consume news and engage with diverse viewpoints, Viewpoint seeks to foster a more informed and engaged digital democracy.
 
-### Step 1: Clone the Repository
+## Features
 
-Clone the project to your local machine:
+1. **Reliable News Integration**: Access trustworthy news sources to stay informed on politics, social issues, and global events.
 
-```bash
-git clone https://github.com/nilsson-v/junction2024.git
-cd junction2024
-```
+2. **Dynamic Conversations**: Engage in real-time discussions with other users, ensuring that every voice can be heard.
 
-### Step 2: Set Up a Virtual Environment
+3. **Opinion Clustering with pol.is**: Visualize public opinion through pol.is, a tool that allows users to upvote or downvote comments, observe opinion clusters, and find common ground or identify extremes.
 
-Create and activate a virtual environment:
+4. **AI-Driven Functionality**:
+   - **Advanced Search**: Use AI to deliver smart, context-aware search results, helping users find relevant discussions and news effortlessly.
+   - **Intelligent Chat Integration**: Benefit from AI-supported chat that can facilitate discussions, answer questions, and provide insights.
+   - **Opinion Clustering and Analytics**: Viewpoint’s AI clusters opinions intelligently to reveal patterns in public sentiment, promoting a clearer understanding of different perspectives.
 
-```bash
-python -m venv venv
-source venv/bin/activate  # On macOS/Linux
-venv\Scripts\activate     # On Windows
-```
+5. **Extensibility with pol.is API**: With an API key, users can unlock enhanced data analytics and integration capabilities in pol.is, providing deeper insights and improved interactivity.
 
-### Step 3: Install Dependencies
+## Technology Stack
 
-Install the required Python packages using requirements.txt:
+- **Backend**: Flask, containerized and deployed to Google Cloud Run for a scalable and reliable backend infrastructure.
+- **Frontend**: React, deployed on Vercel for a performant, responsive user interface.
+- **AI and LLM Integration**: Uses GROQ for large language model (LLM) capabilities to power intelligent features like search, chat, and opinion processing.
+- **Opinion Visualization**: Pol.is integration for clustering opinions and visualizing public sentiment.
 
-```bash
-pip install -r requirements.txt
-```
+## Installation and Setup
 
-### Step 4: Get the Firebase Service Account Key
+### Prerequisites
 
-Request the serviceAccountKey.json file from the project maintainer.
-Place the file in the firebase/ folder within the project directory:
+- Docker
+- Node.js and npm
+- Python 3.9
+- A Google Cloud account (for deployment on Cloud Run)
+- Vercel account (for frontend deployment)
 
-```bash
-junction2024/firebase/serviceAccountKey.json
-```
+### Steps
 
-### Step 5: Initialize Firebase
+1. **Clone the Repository**:
 
-Run the initialization script to set up Firebase:
+   ```bash
+   git clone https://github.com/nilsson-v/junction2024.git
+   cd viewpoint
+   ```
 
-```bash
-python firebase/firebase_init.py
-```
+2. **Backend Setup**:
 
-If everything is set up correctly, you should see:
+   - Navigate to the backend directory.
+   - Create a virtual environment and activate it:
 
-```bash
-Firebase initialized successfully!
-```
+     ```bash
+     python3 -m venv env
+     source env/bin/activate
+     ```
 
-## 📝 Important Notes
+   - Install the required dependencies:
 
-Do not commit the serviceAccountKey.json file to the repository. This file contains sensitive credentials and is already listed in .gitignore.
+     ```bash
+     pip install -r requirements.txt
+     ```
 
-If you encounter FileNotFoundError, make sure the serviceAccountKey.json file is in the correct location (firebase/serviceAccountKey.json).
+   - Configure environment variables for Flask and Google Cloud.
 
-## 🐛 Troubleshooting
+   - Build and run the Docker image:
 
-Firebase Not Initialized: Ensure the path to serviceAccountKey.json is correct in firebase_init.py.
-Dependencies Issues: If you face issues installing dependencies, try updating pip:
+     ```bash
+     docker build -t firebase_backend .
+     docker run -p 8000:8000 firebase_backend
+     ```
 
-```bash
-pip install --upgrade pip
-```
+3. **Frontend Setup**:
+
+   - Navigate to the frontend directory.
+   - Install dependencies:
+
+     ```bash
+     npm install
+     ```
+
+   - Start the development server:
+
+     ```bash
+     npm run dev
+     ```
+
+4. **Deployment**:
+
+   - Deploy the backend to Google Cloud Run following the Google Cloud deployment guide.
+   - Deploy the frontend to Vercel via the Vercel CLI or GitHub integration.
+
+## Usage
+
+1. **Explore News**: Browse through curated, reliable news sources directly on the platform.
+2. **Join Conversations**: Share your opinions on news topics and engage with other users in real-time discussions.
+3. **Pol.is Integration**: Visualize public sentiment, understand opinion clusters, and explore areas of consensus or difference.
+4. **Advanced Search and Chat**: Utilize AI-driven search and chat for personalized news discovery and enhanced interactions.
