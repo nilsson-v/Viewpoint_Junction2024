@@ -1,6 +1,6 @@
 # Viewpoint
 
-**Enhancing Citizen Discourse through News, AI, and Real-Time Engagement**
+**Enhancing Citizen Discourse through News, AI, and Real-Time Engagement, Junction 2024 Hackathon Challenge**
 
 ---
 
