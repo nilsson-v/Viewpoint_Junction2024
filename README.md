@@ -100,3 +100,7 @@ Viewpoint is a platform that aims to elevate public discourse by merging credibl
 2. **Join Conversations**: Share your opinions on news topics and engage with other users in real-time discussions.
 3. **Pol.is Integration**: Visualize public sentiment, understand opinion clusters, and explore areas of consensus or difference.
 4. **Advanced Search and Chat**: Utilize AI-driven search and chat for personalized news discovery and enhanced interactions.
+
+## Check it out here:
+
+https://junction2024-ear6hpyx1-daniel-michaelis-projects.vercel.app/
