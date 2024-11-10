@@ -2,4 +2,9 @@ config_private.py
 __pycache__
 .conda
 news_data.json
-firebase/serviceAccountKey.json
+firebase_backend/junction-2024-firebase-adminsdk-nkyl9-f1b4744457.json
+test.py
+.DS_Store
+groq_keys.py
+processed_news.json
+archive.py
